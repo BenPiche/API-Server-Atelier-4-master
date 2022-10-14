@@ -112,3 +112,8 @@ label {
 div2, span2 {
     border:1px solid red;
 }
+.NouvelleImage{
+    height: 50px;
+    width: 50px;
+    margin: 50px;
+}

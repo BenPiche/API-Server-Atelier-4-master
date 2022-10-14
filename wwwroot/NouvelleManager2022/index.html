@@ -18,8 +18,8 @@
             <div class="headerPanel">
                 <div class="headerLayout">
                     <img src="favicon.ico" alt="" data-toggle="tooltip"
-                        title="Gestionnaire de favori - Auteur Nicolas Chourot - Collège Lionel-Groulx">
-                    <span class="header">Gestionnaire de Favoris </span>
+                        title="Gestionnaire de nouvelles - Auteurs Benjamin Piché et Dave Richer-Ménard - Collège Lionel-Groulx">
+                    <span class="header">Gestionnaire de nouvelles </span>
                     <span class="cmd fa fa-plus-square" id="newBookmarkCmd" title="Ajouter un favori"
                         data-toggle="tooltip"></span>
                     <span class="cmd fa fa-search" title="Afficher/masquer la barre de recherche"
@@ -60,6 +60,7 @@
                         <input type="text" id="category_input" class="form-control" required
                             invalidMessage="Obligatoire">
                     </form>
+                    
                 </div>
                 <div id="confirmDeleteDlg">
                     <span id="confirmationMessage"></span>
@@ -122,19 +123,21 @@
                 }
             }
             function refreshBookmarksList(bookmarks, ETag) {
-                function makeFavicon(url) {
+                function makeImageNouvelle(url) {
                     let link = $(`<a href='${url}' target='_blank'></a>`)
-                    link.append($(`<img class='favicon' src="https://www.google.com/s2/favicons?domain=${url}&sz=48">`));
+                    link.append($(`<img class='NouvelleImage' src="${url}">`));
                     return link;
                 }
                 function insertIntoBookmarkList(bookmark) {
-                    let catElem = $(`<div class="ellipsis">${bookmark.Category}</div>`);
-                    let titElem = $(`<div  class="ellipsis">${bookmark.Title}</div>`);
+                   
+                    let catElem = $(`<div class="ellipsis"> ${bookmark.Categorie}</div>`);
+              
+                    let titElem = $(`<div  class="ellipsis">${bookmark.Titre}</div>`);
                     let editCmd = $(`<div class="cmd editCmd fa fa-pencil-square" bookmarkid="${bookmark.Id}" title="Editer ${bookmark.Title}" data-toggle="tooltip">`);
                     let deleteCmd = $(`<div class="cmd deleteCmd fa fa-window-close" bookmarkid="${bookmark.Id}" title="Effacer ${bookmark.Title}" data-toggle="tooltip">`);
                     let bookmarkRow = $("<div class='bookmarkLayout bookmarkRow'>");
                     bookmarkRow.append(catElem);
-                    bookmarkRow.append(makeFavicon(bookmark.Url));
+                    bookmarkRow.append(makeImageNouvelle(bookmark.ImageUrl));
                     bookmarkRow.append(titElem);
                     bookmarkRow.append(editCmd);
                     bookmarkRow.append(deleteCmd);
