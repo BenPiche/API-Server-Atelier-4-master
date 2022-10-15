@@ -82,6 +82,8 @@
             let createMode = true;
             let searchCategory = "";
             let searchTitle = "";
+            let searchTexte = "";
+            let searchDate = "";
             let hideSearchBar = true;
             let bookmarkIdToDelete = 0; // used by confirmDeleteDlg
             let selectedCategory = "";
@@ -106,7 +108,7 @@
                         if (selectedCategory != "")
                             queryString += "&Category=" + selectedCategory;
                         if (searchTitle != "")
-                            queryString += "&Title=*" + searchTitle + "*";
+                            queryString += "&Title=*" + searchTitle + "*"; 
                     }
                     return queryString;
                 }
@@ -130,17 +132,20 @@
                 }
                 function insertIntoBookmarkList(bookmark) {
                    
-                    let catElem = $(`<div class="ellipsis"> ${bookmark.Categorie}</div>`);
-              
-                    let titElem = $(`<div  class="ellipsis">${bookmark.Titre}</div>`);
+                    let catElem = $(`<div class="ellipsis"> Theme :  ${bookmark.Categorie} <br> </div>`);
+                    let titElem = $(`<div  class="ellipsis"> Titre : ${bookmark.Titre}  </div>`);
+                    let descElem = $(`<div class="ellipsis"> ${bookmark.Texte} <hr><br>   </div> `)
                     let editCmd = $(`<div class="cmd editCmd fa fa-pencil-square" bookmarkid="${bookmark.Id}" title="Editer ${bookmark.Title}" data-toggle="tooltip">`);
                     let deleteCmd = $(`<div class="cmd deleteCmd fa fa-window-close" bookmarkid="${bookmark.Id}" title="Effacer ${bookmark.Title}" data-toggle="tooltip">`);
+                    let dateElem = $(`<div class="ellipsis"> Date : ${bookmark.Date} <hr>  </div>`);
                     let bookmarkRow = $("<div class='bookmarkLayout bookmarkRow'>");
                     bookmarkRow.append(catElem);
-                    bookmarkRow.append(makeImageNouvelle(bookmark.ImageUrl));
                     bookmarkRow.append(titElem);
+                    bookmarkRow.append(makeImageNouvelle(bookmark.ImageUrl));
+                    bookmarkRow.append(descElem);
                     bookmarkRow.append(editCmd);
                     bookmarkRow.append(deleteCmd);
+                    
                     $("#bookmarksList").append(bookmarkRow);
                 }
                 currentETag = ETag;
