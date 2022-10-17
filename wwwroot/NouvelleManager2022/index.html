@@ -79,6 +79,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script src="js/customValidation.js"></script>
         <script src="js/api.js"></script>
+        <script src="/utilities.js"></script>
         <script defer>
             const periodicRefreshPeriod = 10;
             let holdCheckETag = false;
@@ -138,16 +139,17 @@
                    
                     let catElem = $(`<div class="ellipsis"> Theme :  ${nouvelle.Categorie} <br> </div>`);
                     let titElem = $(`<div  class="ellipsis"> Titre : ${nouvelle.Titre}  </div>`);
-                    let descElem = $(`<div class="ellipsis"> ${nouvelle.Texte} <hr><br>   </div> `)
+                    let descElem = $(`<div class="ellipsis"> ${nouvelle.Texte}  <br>  </div> `)
                     let editCmd = $(`<div class="cmd editCmd fa fa-pencil-square" bookmarkid="${nouvelle.Id}" titre="Editer :  ${nouvelle.Titre}" data-toggle="tooltip">`);
                     let deleteCmd = $(`<div class="cmd deleteCmd fa fa-window-close" bookmarkid="${nouvelle.Id}" titre="Effacer :  ${nouvelle.Titre}" data-toggle="tooltip">`);
-                    let dateElem = $(`<div class="ellipsis"> Date : ${nouvelle.Date} <hr>  </div>`);
+                    let dateElem = $(`<div class="ellipsis"> Date : ${nouvelle.Date}  <hr>  </div>`);
                     let nouvelleRow = $("<div class='bookmarkLayout bookmarkRow'>");
                     nouvelleRow.append(catElem);
                     nouvelleRow.append(titElem);
                     nouvelleRow.append(makeImageNouvelle(nouvelle.ImageUrl));
                     nouvelleRow.append(descElem);
-                    console.log(dateElem);
+                    nouvelleRow.append(secondsToDateString(nouvelle.Date));
+                    
                     nouvelleRow.append(editCmd);
                     nouvelleRow.append(deleteCmd);
                     
