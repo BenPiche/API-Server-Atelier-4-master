@@ -20,7 +20,7 @@
                     <img src="favicon.ico" alt="" data-toggle="tooltip"
                         title="Gestionnaire de nouvelles - Auteurs Benjamin Piché et Dave Richer-Ménard - Collège Lionel-Groulx">
                     <span class="header">Gestionnaire de nouvelles </span>
-                    <span class="cmd fa fa-plus-square" id="newBookmarkCmd" title="Ajouter un favori"
+                    <span class="cmd fa fa-plus-square" id="newBookmarkCmd" title="Ajouter une nouvelle"
                         data-toggle="tooltip"></span>
                     <span class="cmd fa fa-search" title="Afficher/masquer la barre de recherche"
                         data-toggle="tooltip"></span>
@@ -31,7 +31,7 @@
                             <!-- filled programmatically-->
                         </select>
                         <span> <!-- skip a column --> </span>
-                        <input type="search" id="searchTitle" class="form-control" placeholder="Recherche de favoris" />
+                        <input type="search" id="searchTitle" class="form-control" placeholder="Recherche de nouvelles" />
                         <span> <!-- skip a column --> </span>
                         <span class="cmd fa fa-refresh"></span>
                     </div>
@@ -49,16 +49,20 @@
                     <form id="bookmakForm">
                         <input type="hidden" id="Id_input" value="0">
 
+                        <label for="title_input">Theme</label>
+                        <input type="text" id="Theme_input" class="form-control" required invalidMessage="Obligatoire"
+                        invalidMessage="Lien invalide">
+
                         <label for="title_input">Titre</label>
                         <input type="text" id="title_input" class="form-control" required invalidMessage="Obligatoire">
-
+                        
                         <label for="url_input">Hyperlien</label>
                         <input type="url" id="url_input" class="form-control URL" required
                             invalidMessage="Lien invalide">
 
-                        <label for="category_input">Catégorie</label>
-                        <input type="text" id="category_input" class="form-control" required
-                            invalidMessage="Obligatoire">
+                            <label for="title_input">Texte</label>
+                        <input type="text" id="texte_input" class="form-control" required invalidMessage="Obligatoire">
+
                     </form>
                     
                 </div>
@@ -124,40 +128,41 @@
                     $("#searchCategory").append(`<option value='${category}' ${selected}>${category}</option>`);
                 }
             }
-            function refreshBookmarksList(bookmarks, ETag) {
+            function refreshBookmarksList(nouvelles, ETag) {
                 function makeImageNouvelle(url) {
                     let link = $(`<a href='${url}' target='_blank'></a>`)
                     link.append($(`<img class='NouvelleImage' src="${url}">`));
                     return link;
                 }
-                function insertIntoBookmarkList(bookmark) {
+                function insertIntoBookmarkList(nouvelle) {
                    
-                    let catElem = $(`<div class="ellipsis"> Theme :  ${bookmark.Categorie} <br> </div>`);
-                    let titElem = $(`<div  class="ellipsis"> Titre : ${bookmark.Titre}  </div>`);
-                    let descElem = $(`<div class="ellipsis"> ${bookmark.Texte} <hr><br>   </div> `)
-                    let editCmd = $(`<div class="cmd editCmd fa fa-pencil-square" bookmarkid="${bookmark.Id}" title="Editer ${bookmark.Title}" data-toggle="tooltip">`);
-                    let deleteCmd = $(`<div class="cmd deleteCmd fa fa-window-close" bookmarkid="${bookmark.Id}" title="Effacer ${bookmark.Title}" data-toggle="tooltip">`);
-                    let dateElem = $(`<div class="ellipsis"> Date : ${bookmark.Date} <hr>  </div>`);
-                    let bookmarkRow = $("<div class='bookmarkLayout bookmarkRow'>");
-                    bookmarkRow.append(catElem);
-                    bookmarkRow.append(titElem);
-                    bookmarkRow.append(makeImageNouvelle(bookmark.ImageUrl));
-                    bookmarkRow.append(descElem);
-                    bookmarkRow.append(editCmd);
-                    bookmarkRow.append(deleteCmd);
+                    let catElem = $(`<div class="ellipsis"> Theme :  ${nouvelle.Categorie} <br> </div>`);
+                    let titElem = $(`<div  class="ellipsis"> Titre : ${nouvelle.Titre}  </div>`);
+                    let descElem = $(`<div class="ellipsis"> ${nouvelle.Texte} <hr><br>   </div> `)
+                    let editCmd = $(`<div class="cmd editCmd fa fa-pencil-square" bookmarkid="${nouvelle.Id}" title="Editer :  ${nouvelle.Titre}" data-toggle="tooltip">`);
+                    let deleteCmd = $(`<div class="cmd deleteCmd fa fa-window-close" bookmarkid="${nouvelle.Id}" title="Effacer :  ${nouvelle.Titre}" data-toggle="tooltip">`);
+                    let dateElem = $(`<div class="ellipsis"> Date : ${nouvelle.Date} <hr>  </div>`);
+                    let nouvelleRow = $("<div class='bookmarkLayout bookmarkRow'>");
+                    nouvelleRow.append(catElem);
+                    nouvelleRow.append(titElem);
+                    nouvelleRow.append(makeImageNouvelle(nouvelle.ImageUrl));
+                    nouvelleRow.append(descElem);
+                    console.log(dateElem);
+                    nouvelleRow.append(editCmd);
+                    nouvelleRow.append(deleteCmd);
                     
-                    $("#bookmarksList").append(bookmarkRow);
+                    $("#bookmarksList").append(nouvelleRow);
                 }
                 currentETag = ETag;
                 previousScrollPosition = $(".scrollContainer").scrollTop();
                 $("#bookmarksList").empty();
                 let currentCategory = "";
-                for (let bookmark of bookmarks) {
-                    if (bookmark.Category !== currentCategory)
-                        currentCategory = bookmark.Category;
+                for (let nouvelle of nouvelles) {
+                    if (nouvelle.Category !== currentCategory)
+                        currentCategory = nouvelle.Category;
                     else
-                        bookmark.Category = "";
-                    insertIntoBookmarkList(bookmark);
+                        nouvelle.Category = "";
+                    insertIntoBookmarkList(nouvelle);
                 }
                 $(".scrollContainer").scrollTop(previousScrollPosition);
                 $(".editCmd").click(e => { editBookmark(e) });
