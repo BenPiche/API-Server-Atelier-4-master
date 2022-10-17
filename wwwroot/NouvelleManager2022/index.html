@@ -99,20 +99,20 @@
             function checkETag(ETag) {
                 if (!holdCheckETag && ETag != currentETag) {
                     currentETag = ETag;
-                    getBookmarksList();
+                    getNouvellesList();
                 }
             }
 
-            function getBookmarksList() {
+            function getNouvellesList() {
                 function prepareQueryString() {
-                    let queryString = "?sort=Category&sort=Title";
+                    let queryString = "?sort=Categorie&sort=Titre";
                     if (!hideSearchBar) {
                         selectedCategory = $("#searchCategory").val();
-                        let searchTitle = $("#searchTitle").val();
+                        let searchTitre = $("#searchTitre").val();
                         if (selectedCategory != "")
                             queryString += "&Category=" + selectedCategory;
-                        if (searchTitle != "")
-                            queryString += "&Title=*" + searchTitle + "*"; 
+                        if (searchTitre != "")
+                            queryString += "&Titre=*" + searchTitre + "*"; 
                     }
                     return queryString;
                 }
@@ -199,7 +199,7 @@
                 holdCheckETag = true;
                 createMode = true;
                 resetBookmarkForm()
-                $("#bookmarkDlg").dialog('option', 'title', 'Ajout de favori');
+                $("#bookmarkDlg").dialog('option', 'title', 'Ajout de nouvelle');
                 $("#bookmarkDlgOkBtn").text("Ajouter");
                 $("#bookmarkDlg").dialog('open');
             }
@@ -208,7 +208,7 @@
                 createMode = false;
                 GET_ID(e.target.getAttribute("bookmarkid"), bookmarkToForm, error);
                 holdCheckETag = true;
-                $("#bookmarkDlg").dialog('option', 'title', 'Modification de favori');
+                $("#bookmarkDlg").dialog('option', 'title', 'Modification de nouvelle');
                 $("#bookmarkDlgOkBtn").text("Modifier");
                 $("#bookmarkDlg").dialog('open');
             }
@@ -252,16 +252,16 @@
 
             function init_UI() {
                 $("#newBookmarkCmd").click(newBookmark)
-                $("#searchCategory").change(() => { selectedCategory = $("#searchCategory").val(); getBookmarksList(); })
+                $("#searchCategory").change(() => { selectedCategory = $("#searchCategory").val(); getNouvellesList(); })
 
-                $(".fa-refresh").click(e => { getBookmarksList() })
+                $(".fa-refresh").click(e => { getNouvellesList() })
                 $(".fa-search").click(e => {
                     hideSearchBar = !hideSearchBar;
                     if (hideSearchBar)
                         $("#searchBar").hide();
                     else
                         $("#searchBar").show();
-                    getBookmarksList();
+                    getNouvellesList();
                 })
 
                 $("#bookmarkDlg").dialog({
@@ -281,12 +281,12 @@
                         id: "bookmarkDlgOkBtn",
                         text: "Title will be changed dynamically",
                         click: function () {
-                            let bookmark = bookmarkFromForm();
-                            if (bookmark) {
+                            let nouvelle = bookmarkFromForm();
+                            if (nouvelle) {
                                 if (createMode)
-                                    POST(bookmark, getBookmarksList, error);
+                                    POST(nouvelle, getNouvellesList, error);
                                 else
-                                    PUT(bookmark, getBookmarksList, error);
+                                    PUT(nouvelle, getNouvellesList, error);
                                 resetBookmarkForm();
                                 holdCheckETag = false;
                                 $(this).dialog("close");
@@ -317,7 +317,7 @@
                         click: function () {
                             holdCheckETag = false;
                             if (bookmarkIdToDelete)
-                                DELETE(bookmarkIdToDelete, getBookmarksList, error);
+                                DELETE(bookmarkIdToDelete, getNouvellesList, error);
                             bookmarkIdToDelete = 0;
                             $(this).dialog("close");
                         }
