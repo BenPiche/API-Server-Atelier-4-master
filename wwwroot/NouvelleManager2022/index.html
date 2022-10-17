@@ -49,8 +49,8 @@
                     <form id="bookmakForm">
                         <input type="hidden" id="Id_input" value="0">
 
-                        <label for="theme_input">Theme</label>
-                        <input type="text" id="Theme_input" class="form-control" required invalidMessage="Obligatoire"
+                        <label for="Categorie_input">Theme</label>
+                        <input type="text" id="Categorie_input" class="form-control" required invalidMessage="Obligatoire"
                         invalidMessage="Lien invalide">
 
                         <label for="titre_input">Titre</label>
@@ -63,8 +63,7 @@
                             <label for="texte_input">Texte</label>
                         <input type="text" id="texte_input" class="form-control" required invalidMessage="Obligatoire">
 
-                        <label for="date_input">Date</label>
-                        <input type="text" id="date_input" class="form-control" required invalidMessage="Obligatoire">
+                    
 
 
                     </form>
@@ -240,19 +239,19 @@
                 $("#url_input").val("");
                 $("#categorie_input").val("");
                 $("#texte_input").val("");
-                $("#date_input").val("");
+               
             }
             function bookmarkFromForm() {
                 if ($("#bookmakForm")[0].checkValidity()) {
-                    
+                    let date = new Date();
                     let nouvelle = 
                     {
                     Id: parseInt($("#Id_input").val()),
-                    Categorie: $("#categorie_input").val(),
+                    Categorie: $("#Categorie_input").val(),
                     Titre: $("#titre_input").val(),
                     Texte: $("#texte_input").val() ,
                     ImageUrl: $("#url_input").val(),
-                    Date: $("#date_input").val()
+                    Date: date.getTime() / 1000
                     };
                     return nouvelle;
                 } 
@@ -269,7 +268,7 @@
                 $("#titre_input").val(nouvelle.Titre);
                 $("#texte_input").val(nouvelle.Texte);
                 $("#url_input").val(nouvelle.ImageUrl);
-                $("#date_input").val(nouvelle.Date)
+               // $("#date_input").val(nouvelle.Date)
                 
             }
 
