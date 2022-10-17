@@ -49,7 +49,7 @@
                     <form id="bookmakForm">
                         <input type="hidden" id="Id_input" value="0">
 
-                        <label for="titre_input">Theme</label>
+                        <label for="theme_input">Theme</label>
                         <input type="text" id="Theme_input" class="form-control" required invalidMessage="Obligatoire"
                         invalidMessage="Lien invalide">
 
@@ -60,8 +60,12 @@
                         <input type="url" id="url_input" class="form-control URL" required
                             invalidMessage="Lien invalide">
 
-                            <label for="titre_input">Texte</label>
+                            <label for="texte_input">Texte</label>
                         <input type="text" id="texte_input" class="form-control" required invalidMessage="Obligatoire">
+
+                        <label for="date_input">Date</label>
+                        <input type="text" id="date_input" class="form-control" required invalidMessage="Obligatoire">
+
 
                     </form>
                     
@@ -219,8 +223,8 @@
                 bookmarkIdToDelete = e.target.getAttribute("bookmarkid")
                 GET_ID(
                     bookmarkIdToDelete,
-                    bookmark => {
-                        $("#confirmationMessage").html("Voulez-vous vraiment effacer le favori <b>" + bookmark.Titre + "</b>?")
+                    nouvelle => {
+                        $("#confirmationMessage").html("Voulez-vous vraiment effacer le favori <b>" + nouvelle.Titre + "</b>?")
                     },
                     error
                 );
@@ -235,21 +239,38 @@
                 $("#titre_input").val("");
                 $("#url_input").val("");
                 $("#categorie_input").val("");
+                $("#texte_input").val("");
+                $("#date_input").val("");
             }
             function bookmarkFromForm() {
                 if ($("#bookmakForm")[0].checkValidity()) {
-                    let bookmark = { Id: parseInt($("#Id_input").val()), Titre: $("#titre_input").val(), Url: $("#url_input").val(), Categorie: $("#categorie_input").val() };
-                    return bookmark;
-                } else {
+                    
+                    let nouvelle = 
+                    {
+                    Id: parseInt($("#Id_input").val()),
+                    Categorie: $("#categorie_input").val(),
+                    Titre: $("#titre_input").val(),
+                    Texte: $("#texte_input").val() ,
+                    ImageUrl: $("#url_input").val(),
+                    Date: $("#date_input").val()
+                    };
+                    return nouvelle;
+                } 
+                else {
                     $("#bookmakForm")[0].reportValidity()
                 }
                 return false;
             }
-            function bookmarkToForm(bookmark) {
-                $("#Id_input").val(bookmark.Id);
-                $("#titre_input").val(bookmark.Titre);
-                $("#url_input").val(bookmark.Url);
-                $("#categorie_input").val(bookmark.Categorie);
+          
+            
+            function bookmarkToForm(nouvelle) {
+                $("#Id_input").val(nouvelle.Id);
+                $("#categorie_input").val(nouvelle.Categorie);
+                $("#titre_input").val(nouvelle.Titre);
+                $("#texte_input").val(nouvelle.Texte);
+                $("#url_input").val(nouvelle.ImageUrl);
+                $("#date_input").val(nouvelle.Date)
+                
             }
 
             function init_UI() {
