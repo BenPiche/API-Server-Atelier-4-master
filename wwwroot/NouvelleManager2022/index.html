@@ -98,7 +98,7 @@
 
             function getNouvellesList() {
                 function prepareQueryString() {
-                    let queryString = "?sort=Categorie&sort=Titre";refreshCategorieList
+                    let queryString = "?sort=Date,desc";refreshCategorieList
                     if (!hideSearchBar) {
                         selectedCategorie = $("#searchCategorie").val();
                         let searchTitre = $("#searchTitre").val();
