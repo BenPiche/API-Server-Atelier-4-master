@@ -131,7 +131,7 @@
                 }
                 function insertIntoBookmarkList(nouvelle) {
                    
-                    let catElem = $(`<div class="ellipsis"> Theme :  ${nouvelle.Categorie} <br> </div>`);
+                    let catElem = $(`<div class="ellipsis"> Thème :  ${nouvelle.Categorie} <br> </div>`);
                     let titElem = $(`<div  class="ellipsis"> Titre : ${nouvelle.Titre}  </div>`);
                     let descElem = $(`<div class="ellipsis"> ${nouvelle.Texte}  <br>  </div> `)
                     let editCmd = $(`<div class="cmd editCmd fa fa-pencil-square" bookmarkid="${nouvelle.Id}" titre="Editer :  ${nouvelle.Titre}" data-toggle="tooltip">`);
@@ -177,9 +177,7 @@
                             getNouvellesList()
                         }
                         stop=false
-                        
-                       
-                       
+
 
                        }
                       
