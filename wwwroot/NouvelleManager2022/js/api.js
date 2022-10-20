@@ -1,4 +1,4 @@
-const apiBaseURL = "http://localhost:5000/api/nouvelles";
+const apiBaseURL = "https://202031862-api-server-labo3/api/nouvelles";
 
 function HEAD(successCallBack, errorCallBack) {
     $.ajax({
