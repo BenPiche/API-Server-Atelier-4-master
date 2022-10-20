@@ -96,9 +96,11 @@
                 }
             }
 
+            let limit=2;
+            let offset=0;
             function getNouvellesList() {
                 function prepareQueryString() {
-                    let queryString = "?sort=Date,desc";refreshCategorieList
+                    let queryString = `?limit=${limit}&offset=${offset}&sort=${Date},desc`;refreshCategorieList
                     if (!hideSearchBar) {
                         selectedCategorie = $("#searchCategorie").val();
                         let searchTitre = $("#searchTitre").val();
@@ -148,6 +150,7 @@
                     $("#bookmarksList").append(nouvelleRow);
                 }
                 currentETag = ETag;
+                
                 previousScrollPosition = $(".scrollContainer").scrollTop();
                 $("#bookmarksList").empty();
                 let currentCategorie = "";
@@ -158,12 +161,35 @@
                         nouvelle.Categorie = "";
                     insertIntoBookmarkList(nouvelle);
                 }
-                $(".scrollContainer").scrollTop(previousScrollPosition);
+               //$(".scrollContainer").scrollTop(previousScrollPosition);
                 $(".editCmd").click(e => { editBookmark(e) });
                 $(".deleteCmd").click(e => { deleteBookmark(e) });
                 $('[data-toggle="tooltip"]').tooltip();
+                $(".scrollContainer").scroll(function () {
+                   let stop=false;
+                  
+                   if ($(".scrollContainer").scrollTop() + $(".scrollContainer").innerHeight() >= $("#bookmarksList").height()) 
+                   {stop=true   }
+                       if($(".scrollContainer").scrollTop()>=($("#bookmarksList").height()-$(".mainContainer").innerHeight())){
+                     
+                        if(stop=true){
+                            limit++;
+                            getNouvellesList()
+                        }
+                        stop=false
+                        
+                       
+                       
+
+                       }
+                      
+                   
+                  
+            })
+                
             }
 
+           
             function error(status) {
                 let errorMessage = "";
                 switch (status) {
