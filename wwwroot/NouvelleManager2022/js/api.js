@@ -1,4 +1,4 @@
-const apiBaseURL = "https://202031862-201951252-nouvellemanager.glitch.me/api/Nouvelle";
+const apiBaseURL = "https://202031862-201951252-nouvellemanagers.glitch.me/api/Nouvelle";
 
 function HEAD(successCallBack, errorCallBack) {
     $.ajax({
