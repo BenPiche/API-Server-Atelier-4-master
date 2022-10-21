@@ -72,7 +72,6 @@
         <script src="js/customValidation.js"></script>
         <script src="js/api.js"></script>
         <script src="/utilities.js"></script>
-        <script src="/"></script>
         <script defer>
             const periodicRefreshPeriod = 10;
             let holdCheckETag = false;
@@ -96,14 +95,9 @@
                     getNouvellesList();
                 }
             }
-            
+
             let limit=2;
             let offset=0;
-
-            function secondsToDateString(dateInSeconds, localizationId = 'fr-FR') {
-             const hoursOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
-              return new Date(dateInSeconds * 1000).toLocaleDateString(localizationId, hoursOptions);}
-
             function getNouvellesList() {
                 function prepareQueryString() {
                     let queryString = `?limit=${limit}&offset=${offset}&sort=${Date},desc`;refreshCategorieList
@@ -135,6 +129,10 @@
                     link.append($(`<img class='NouvelleImage' src="${url}">`));
                     return link;
                 }
+              function secondsToDateString(dateInSeconds, localizationId = 'fr-FR') {
+    const hoursOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    return new Date(dateInSeconds * 1000).toLocaleDateString(localizationId, hoursOptions);
+}
                 function insertIntoBookmarkList(nouvelle) {
                    
                     let catElem = $(`<div class="ellipsis"> Thème :  ${nouvelle.Categorie} <br> </div>`);
@@ -149,7 +147,7 @@
                     nouvelleRow.append(makeImageNouvelle(nouvelle.ImageUrl));
                     nouvelleRow.append(descElem);
                     nouvelleRow.append(secondsToDateString(nouvelle.Date));
-                   // nouvelleRow.append(dateElem);
+                    
                    
                     nouvelleRow.append(editCmd);
                     nouvelleRow.append(deleteCmd);
